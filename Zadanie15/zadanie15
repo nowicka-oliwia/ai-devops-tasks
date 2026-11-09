@@ -1,0 +1,87 @@
+
+# Zadanie 15 – Refaktoryzacja funkcji JavaScript
+
+## 1. Cel zadania
+
+Celem zadania było poprawienie czytelności i łatwości
+utrzymania funkcji getEnvironmentConfig.
+
+Funkcja odpowiada za zwracanie konfiguracji aplikacji
+w zależności od środowiska uruchomieniowego.
+
+## 2. Oryginalna wersja
+
+W oryginalnej funkcji wykorzystano wiele instrukcji
+warunkowych if oraz else if.
+
+Każde środowisko posiadało osobny blok kodu,
+w którym zwracane były odpowiednie ustawienia.
+
+## 3. Wprowadzone zmiany
+
+W zrefaktoryzowanej wersji:
+
+1. Utworzono obiekt environmentConfigs.
+2. Wszystkie konfiguracje środowisk umieszczono w jednym miejscu.
+3. Zamiast wielu instrukcji warunkowych zastosowano
+   bezpośrednie odwołanie do właściwości obiektu.
+4. Zastosowano operator ||, który ustawia środowisko
+   development jako domyślne, jeśli podana nazwa
+   środowiska nie istnieje.
+
+## 4. Porównanie wersji
+
+| Kryterium | Oryginalna wersja | Nowa wersja |
+|---|---|---|
+| Instrukcje warunkowe | Wiele if/else if | Brak |
+| Czytelność | Średnia | Wysoka |
+| Konfiguracja | Rozproszona | W jednym obiekcie |
+| Dodawanie środowisk | Wymaga kolejnego warunku | Wymaga dodania właściwości |
+| Utrzymanie kodu | Trudniejsze | Łatwiejsze |
+
+## 5. Korzyści z refaktoryzacji
+
+- Lepsza czytelność kodu.
+- Mniej powtarzających się instrukcji.
+- Łatwiejsze dodawanie nowych środowisk.
+- Prostsze zarządzanie konfiguracją.
+- Mniejsze ryzyko popełnienia błędów podczas zmian.
+- Łatwiejsze testowanie funkcji.
+
+## 6. Przykład działania
+
+```javascript
+const getEnvironmentConfig = require('./config-refactored');
+
+console.log(getEnvironmentConfig('development'));
+console.log(getEnvironmentConfig('production'));
+console.log(getEnvironmentConfig('staging'));
+console.log(getEnvironmentConfig('unknown'));
+```
+
+Przykładowy wynik dla production:
+
+```javascript
+{
+  apiUrl: 'https://api.example.com',
+  debug: false,
+  timeout: 15000
+}
+```
+
+Dla nieznanego środowiska zostanie zwrócona
+konfiguracja development.
+
+## 7. Wnioski
+
+Refaktoryzacja pozwoliła uprościć kod i poprawić jego strukturę.
+
+Zastosowanie obiektu environmentConfigs sprawia,
+że wszystkie konfiguracje znajdują się w jednym miejscu.
+
+Nowa wersja jest bardziej czytelna, łatwiejsza
+w rozwijaniu i wygodniejsza w utrzymaniu.
+
+Wniosek końcowy:
+Refaktoryzacja nie zmienia działania funkcji,
+ale poprawia jakość kodu i ułatwia jego dalszy rozwój.
